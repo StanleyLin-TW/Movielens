@@ -1,0 +1,33 @@
+
+> movies=read.csv('~/Desktop/Movielens/Movieinfo.csv') #這邊我有改，你去github把他拿下來，我有更新了就是我的第一列有放標題，這樣讀才會對
+> ratings=read.table('~/Desktop/Content-based/u1base.txt')
+> movies=read.csv('~/Desktop/Movielens/Movieinfo.csv', stringsAsFactors=FALSE)
+> rating_list<-c("userId","movieId","rating","timestamp")
+> colnames(ratings)=rating_list
+> library(reshape2)
+> ratingmat <- dcast(ratings, userId~movieId, value.var = "rating", na.rm=FALSE)
+> ratingmat <- as.matrix(ratingmat[,-1])
+> library(recommenderlab)
+
+> ratingmat <- as(ratingmat, "realRatingMatrix")
+> ratingmat_norm <- normalize(ratingmat)
+> recommender_model <- Recommender(ratingmat_norm, method = "UBCF", param=list(method="Cosine",nn=30)) #取最靠近的前30個neighbors
+> recom <- predict(recommender_model, ratingmat[1], n=10) #ratingmat[1]就是用user 1去做,10是最close的前10個項目
+> recom_list <- as(recom, "list") 
+> recom_result <- matrix(0,10)
+> for (i in c(1:10)){
++  recom_result[i] <- movies[as.integer(recom_list[[1]][i]),2] 
++ }
+> recom_result
+      [,1]                              
+ [1,] "Raiders of the Lost Ark (1981)"  
+ [2,] "Silence of the Lambs, The (1991)"
+ [3,] "Usual Suspects, The (1995)"      
+ [4,] "Schindler's List (1993)"         
+ [5,] "Apocalypse Now (1979)"           
+ [6,] "Fargo (1996)"                    
+ [7,] "Shawshank Redemption, The (1994)"
+ [8,] "Casablanca (1942)"               
+ [9,] "Alien (1979)"                    
+[10,] "Close Shave, A (1995)"           
+> 
