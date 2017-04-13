@@ -25,4 +25,4 @@
 	#print(recom_results[[k]])
 }
  
-write.csv(recom_results,file="FUCK.csv")
+write.csv(recom_results,file="FF.csv")
