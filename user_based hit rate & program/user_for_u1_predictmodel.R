@@ -14,10 +14,10 @@
  for(k in 1:943){
  	recom <- predict(recommender_model, ratingmat[k], type = "ratings") 
  	recom_pre <- as(recom, "list")
- 	recom_result <- matrix(0,1682)
-  	recom_result<-recom_pre
- 	recom_results[[k]]<-as.vector(recom_result)
+# 	recom_result <- matrix(0,1682)
+#  	recom_result <- recom_pre
+ 	recom_results[[k]]<-as.vector(recom_pre)
  	
 }
 
-write.csv(recom_results,file="u1base_predict.csv")
+#write.csv(recom_results,file="u1base_predict.csv")
