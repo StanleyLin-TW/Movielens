@@ -24,7 +24,7 @@ for(k in 1:943){
  		recom_result[i] <- recom_pre[1,i]
  	}
  	for(i in 1:1682){
- 		recom_results[k,i] <- recom_pre[i]
+ 		recom_results[k,i] <- recom_result[i]
  	}
  	
 }
