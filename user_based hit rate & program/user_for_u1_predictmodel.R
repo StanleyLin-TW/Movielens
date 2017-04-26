@@ -15,7 +15,7 @@
  	recom <- predict(recommender_model, ratingmat[k], type = "ratings") 
  	recom_pre <- as(recom, "list")
 # 	recom_result <- matrix(0,1682)
-#  	recom_result <- recom_pre
+# 	recom_result <- recom_pre	
  	recom_results[[k]]<-as.vector(recom_pre)
  	
 }
