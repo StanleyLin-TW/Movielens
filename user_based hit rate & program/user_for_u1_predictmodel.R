@@ -14,9 +14,11 @@
  for(k in 1:943){
  	recom <- predict(recommender_model, ratingmat[k], type = "ratings") 
  	recom_pre <- as(recom, "list")
-# 	recom_result <- matrix(0,1682)
-# 	recom_result <- recom_pre	
- 	recom_results[[k]]<-as.vector(recom_pre)
+ 	recom_result <- matrix(0,1682)
+ 	for(i in c(1:1682)){
+ 		recom_result[i] <- recom_pre [[1]][i]
+ 	}
+ 	recom_results[[k]]<-as.vector(recom_result)
  	
 }
 
