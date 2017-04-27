@@ -32,4 +32,4 @@ for(k in 1:943){
 
 write.csv(recom_results, file = "u1base_predict.csv")
  
-#write.csv(recom_results,file="u1base_predict.csv")
+
