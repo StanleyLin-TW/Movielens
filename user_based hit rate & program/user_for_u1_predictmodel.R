@@ -1,4 +1,4 @@
-ratings=read.table(' ~/Desktop/Movielens/user_based hit rate & program/u1.base.txt')
+ratings=read.table('~/Desktop/Movielens/user_based hit rate & program/u1.base.txt')
 movies=read.csv('~/Desktop/Movielens/user_based hit rate & program/Movieinfo 2.csv', stringsAsFactors=FALSE)
 rating_list<-c("userId","movieId","rating","timestamp")
 colnames(ratings)=rating_list
@@ -10,7 +10,7 @@ library(recommenderlab)
 ratingmat <- as(ratingmat, "realRatingMatrix")
 ratingmat_norm <- normalize(ratingmat)
 recommender_model <- Recommender(ratingmat_norm, method = "UBCF", param=list(method="Cosine",nn=30)) 
-recom_results=matrix(0,943,1682)
+recom_results=matrix(NA,943,1682)
 for(k in 1:943){
  	recom <- predict(recommender_model, ratingmat[k], type = "ratings") 
  	recom_pre <- as(recom, "matrix")
