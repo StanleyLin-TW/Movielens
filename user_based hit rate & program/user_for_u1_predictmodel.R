@@ -14,11 +14,11 @@ recom_results=matrix(NA,943,1682)
 for(k in 1:943){
  	recom <- predict(recommender_model, ratingmat[k], type = "ratings") 
  	recom_pre <- as(recom, "matrix")
- 	for(i in 1:ncol(recom_pre)){
- 		if(is.na(recom_pre[1,i])){
- 			recom_pre[1,i]=0
- 		}	
- 	}
+# 	for(i in 1:ncol(recom_pre)){
+# 		if(is.na(recom_pre[1,i])){
+# 			recom_pre[1,i]=0
+# 		}	
+# 	}
  	recom_result <- matrix(0,1682)
  	for(i in 1:ncol(recom_pre)){
  		j = as.integer(colnames(recom_pre)[i])
