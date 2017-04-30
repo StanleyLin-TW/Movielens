@@ -1,5 +1,5 @@
-ratings=read.table('/Users/StanleyLIn/Desktop/u1.base.txt')
-movies=read.csv('/Users/StanleyLIn/Desktop/Movieinfo 2.csv', stringsAsFactors=FALSE)
+ratings=read.table(' ~/Desktop/Movielens/user_based hit rate & program/u1.base.txt')
+movies=read.csv('~/Desktop/Movielens/user_based hit rate & program/Movieinfo 2.csv', stringsAsFactors=FALSE)
 rating_list<-c("userId","movieId","rating","timestamp")
 colnames(ratings)=rating_list
 library(reshape2)
