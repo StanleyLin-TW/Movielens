@@ -1,33 +1,39 @@
 library(Metrics)
+library(Matrix)
 
-getCosine <- function(x,y) 
-{
+getCosine <- function(x,y) {
   this.cosine <- sum(x*y) / (sqrt(sum(x*x)) * sqrt(sum(y*y)))
   return(this.cosine)
 }
 ratings=read.table('~/Desktop/Movielens/user_based hit rate & program/u1.base.txt')
-movies=read.csv('~/Desktop/Movielens/user_based hit rate & program/Movieinfo 2.csv', stringsAsFactors=FALSE)
-rating_list<-c("userId","movieId","rating","timestamp")
-colnames(ratings)=rating_list
-library(reshape2)
-ratingmat <- dcast(ratings, userId~movieId, value.var = "rating", na.rm=FALSE)
-ratingmat <- as.matrix(ratingmat[,-1])
+#movies=read.csv('~/Desktop/Movielens/user_based hit rate & program/Movieinfo 2.csv', stringsAsFactors=FALSE)
+#rating_list<-c("userId","movieId","rating","timestamp")
+ratings=data.frame(ratings[1],ratings[2],ratings[3])
+ratings=data.matrix(ratings)
+#colnames(ratings)=rating_list
+#library(reshape2)
+#ratingmat <- dcast(ratings, userId~movieId, value.var = "rating", na.rm=FALSE)
+#ratingmat <- as.matrix(ratingmat[,-1])
 
-
+ratingmat=sparseMatrix(i=ratings[,1], j=ratings[,2], x=ratings[,3], dims=c(943,1682))
+C=ratingmat
+is.na(C) <- C==0
 rating_norm <- matrix(NA, nrow=943,ncol=1682,dimnames=list(1:943,1:1682))
-rowmean = rowMeans(ratingmat,na.rm=TRUE)
+rowmean = rowMeans(C,na.rm=TRUE)
 for(b in 1:length(rowmean)){
 	if(is.na(rowmean[b])){
 		rowmean[i]=0;
 	}
 }
+
 for(b in 1:nrow(ratingmat)){
 	for(c in 1:ncol(ratingmat)){
-		if(!is.na(ratingmat[b,c])){
+		if(!is.na(C[b,c])){
 			rating_norm[b,c]=ratingmat[b,c]-rowmean[b]
 		}
 	}
 }
+#以下還沒
 data.similarity  <- matrix(NA, nrow=nrow(rating_norm),ncol=nrow(rating_norm),dimnames=list(1:nrow(rating_norm),1:nrow(rating_norm)))
 for(w in 1:nrow(rating_norm)) {
     for(k in 1:ncol(rating_norm)) {
@@ -86,7 +92,7 @@ for(i in 1:nrow(test_mat)){
 	S=datapre[USER,ITEM]
 	get_value<-append(get_value,S)
 }
-rmse_1=rmse(get_value,test_mat[,3])
-print(rmse_1)
+rmse_2=rmse(get_value,test_mat[,3])
+print(rmse_2)
 
 
